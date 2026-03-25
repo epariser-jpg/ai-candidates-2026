@@ -1,0 +1,11 @@
+anthropic
+httpx
+beautifulsoup4
+playwright
+click
+sqlite-vec
+sentence-transformers
+datasette
+lxml
+tqdm
+python-dotenv

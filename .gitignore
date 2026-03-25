@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+# Exclude scratch databases but keep the main one
+data/*.db
+!data/candidates_ai.db
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.DS_Store
+notebooks/.ipynb_checkpoints/

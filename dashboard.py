@@ -29,7 +29,6 @@ st.markdown("""
 PLOTLY_CONFIG = {"displayModeBar": False}
 
 
-@st.cache_resource
 def get_conn():
     conn = sqlite3.connect(str(DB_PATH), check_same_thread=False)
     conn.row_factory = sqlite3.Row

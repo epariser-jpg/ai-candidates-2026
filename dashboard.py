@@ -71,18 +71,47 @@ PAGES = [
 GITHUB_REPO = "epariser-jpg/ai-candidates-2026"
 
 
+# ── Page slug mapping ────────────────────────────────────────────
+PAGE_SLUGS = {
+    "overview": "📊 Overview",
+    "analysis": "📝 Analysis",
+    "party": "🏛️ By Party",
+    "topic": "🏷️ By Topic",
+    "candidate": "👤 By Candidate",
+    "state": "🗺️ By State",
+    "search": "🔍 Search",
+    "feedback": "💡 Feedback",
+}
+SLUG_FROM_PAGE = {v: k for k, v in PAGE_SLUGS.items()}
+
+
 # ── Navigation helpers ────────────────────────────────────────────
 def navigate(page, **kwargs):
     """Set session state to navigate to a page with context."""
     st.session_state["_nav_target"] = page
     for k, v in kwargs.items():
         st.session_state[f"nav_{k}"] = v
+    # Also write to URL params
+    url_params = {"page": SLUG_FROM_PAGE.get(page, "overview")}
+    url_params.update({k: str(v) for k, v in kwargs.items()})
+    st.query_params.update(url_params)
 
 
 def get_nav(key, default=None):
     """Get a navigation parameter, then clear it."""
     val = st.session_state.pop(f"nav_{key}", default)
     return val
+
+
+def sync_url_params(page):
+    """Write current page and filters to URL query params."""
+    params = {"page": SLUG_FROM_PAGE.get(page, "overview")}
+    # Persist key filter states
+    for key in ["tag", "state", "candidate_id", "sentiment", "party"]:
+        val = st.session_state.get(f"nav_{key}")
+        if val:
+            params[key] = val
+    st.query_params.update(params)
 
 
 # ── Candidate summary builder ────────────────────────────────────
@@ -185,6 +214,17 @@ st.sidebar.title("🏛️ 2026 Candidates on AI")
 st.sidebar.caption("How are Senate candidates talking about artificial intelligence?")
 st.sidebar.divider()
 
+# On first load, read page and filters from URL query params
+_qp = st.query_params
+if "page" in _qp and "page_radio" not in st.session_state:
+    _url_page = PAGE_SLUGS.get(_qp["page"])
+    if _url_page:
+        st.session_state["page_radio"] = _url_page
+    # Load filter params into nav_ keys so pages can pick them up
+    for key in ["tag", "state", "candidate_id", "sentiment", "party"]:
+        if key in _qp:
+            st.session_state[f"nav_{key}"] = _qp[key]
+
 # If a click-through navigation was triggered, apply it before rendering the radio
 if "_nav_target" in st.session_state:
     _target = st.session_state.pop("_nav_target")
@@ -192,6 +232,10 @@ if "_nav_target" in st.session_state:
         st.session_state["page_radio"] = _target
 
 page = st.sidebar.radio("", PAGES, key="page_radio")
+
+# Update URL to reflect current page
+_url_params = {"page": SLUG_FROM_PAGE.get(page, "overview")}
+st.query_params.update(_url_params)
 
 st.sidebar.divider()
 if st.sidebar.button("💡 Share your ideas to improve this site", use_container_width=True):
@@ -683,6 +727,7 @@ elif page == "🏷️ By Topic":
             format_func=lambda t: f"{fmt_tag(t)} ({all_tags[all_tags['name']==t]['count'].values[0]} mentions)")
 
         if selected_tag:
+            st.query_params.update({"page": "topic", "tag": selected_tag})
             excerpts = query_df("""
                 SELECT ca.id as cand_id, ca.name, ca.party, ca.state, ca.candidate_tier,
                        e.excerpt_text, e.position_summary, e.sentiment, e.confidence,
@@ -821,6 +866,7 @@ elif page == "👤 By Candidate":
                                          index=min(default_idx, len(cand_options) - 1),
                                          format_func=lambda i: cand_options[i])
             selected = display_df.iloc[selected_idx]
+            st.query_params.update({"page": "candidate", "candidate_id": str(int(selected["id"]))})
 
             tier_badge = "⭐ Leading Candidate  ·  " if selected.get("candidate_tier") == "leading" else ""
             st.header(f"{selected['name']} ({selected['party']}, {selected['state']})")
@@ -914,6 +960,7 @@ elif page == "🗺️ By State":
             format_func=lambda s: f"{s} — {state_data[state_data['state']==s]['leading_candidates'].values[0]} leading, {state_data[state_data['state']==s]['excerpts'].values[0]} AI excerpts")
 
         if selected_state:
+            st.query_params.update({"page": "state", "state": selected_state})
             state_cands = query_df("""
                 SELECT ca.id, ca.name, ca.party, ca.candidate_tier, ca.campaign_url,
                        COUNT(e.id) as excerpts

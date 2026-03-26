@@ -59,6 +59,7 @@ PARTY_COLORS = {
 
 PAGES = [
     "📊 Overview",
+    "📝 Analysis",
     "🏛️ By Party",
     "🏷️ By Topic",
     "👤 By Candidate",
@@ -333,6 +334,172 @@ if page == "📊 Overview":
     col1.info(f"**{pct_leading}% of leading candidates** mention AI or AI-adjacent topics on their campaign websites.")
     col2.info(f"**Tech regulation** is the most discussed AI topic, followed by surveillance/privacy and jobs/workforce.")
     col3.info(f"**Democrats engage more** with AI topics. Republicans who do tend to focus on surveillance and opposing regulation.")
+
+
+# ═══════════════════════════════════════════════════════════════════
+# ANALYSIS REPORT
+# ═══════════════════════════════════════════════════════════════════
+elif page == "📝 Analysis":
+    st.title("How 2026 Senate Candidates Are Talking About AI")
+    st.caption("An analysis of AI-related positions on campaign websites  ·  March 2026")
+
+    st.markdown("""
+---
+
+### The Big Picture
+
+Artificial intelligence has arrived in the 2026 Senate races — but unevenly.
+After scraping and analyzing the campaign websites of **77 leading candidates**
+across all 33 Senate races, we found that **roughly half (39) mention AI or
+AI-adjacent topics** on their campaign sites. That means half of the people who
+may shape America's AI policy in the next Congress haven't yet told voters what
+they think about it.
+
+Among those who do engage, **416 distinct AI-related positions** emerged, spanning
+topics from workforce automation to deepfakes to semiconductor competition with
+China. But the nature of that engagement differs starkly between the parties — not
+just in what they say, but in *whether they say anything at all*.
+
+---
+
+### The Partisan Divide: Different Conversations, Not Just Different Answers
+
+The most important finding isn't that Democrats and Republicans disagree about AI —
+it's that **they're having fundamentally different conversations**.
+
+**Democrats are far more likely to engage.** Among leading candidates, Democrats
+produced 103 AI-related excerpts across 24 candidates, compared to just 34
+excerpts from 14 Republicans. Democratic candidates like **James Talarico (TX)**,
+**Charles Booker (KY)**, **Ed Markey (MA)**, and **Haley Stevens (MI)** have built
+detailed, multi-issue AI platforms. Most leading Republican candidates simply
+don't address AI on their campaign websites.
+
+**Democrats lead with jobs and worker protection.** The single biggest topic in the
+Democratic AI conversation is *ai_jobs_workforce* (33 mentions among leading
+candidates) — a topic that **no leading Republican candidate addresses**. Democrats
+frame AI through the lens of labor: Will automation displace workers? Should
+companies that replace workers with AI pay a tax? Do workers deserve a seat at the
+table when AI decisions are made? This framing connects AI to a long-standing
+Democratic priority — worker and union power — and reflects real anxiety about
+automation's impact on middle-class jobs.
+
+**Republicans lead with competition and strength.** When Republicans do engage with
+AI, their top topic is *ai_competitiveness_china* (12 mentions) — framing AI as a
+national security and economic competition issue. **Mike Rogers (MI)** emphasizes
+U.S. global AI leadership and the White House AI framework. **Tom Cotton (AR)**
+and **Pete Ricketts (NE)** connect AI to military readiness. The Republican AI
+conversation is more about *winning the AI race* than *governing AI's consequences*.
+
+**Surveillance is a rare point of agreement — from opposite directions.** Both
+parties express concern about AI-powered surveillance, but for different reasons.
+Democrats like **Jeff Merkley (OR)** want to ban facial recognition in immigration
+enforcement. Republicans' surveillance concerns tend to be rooted in libertarian
+skepticism of government data collection. The policy prescriptions differ, but the
+underlying wariness of automated surveillance is bipartisan.
+
+---
+
+### The Boldest Candidates
+
+A handful of candidates have staked out unusually detailed or ambitious AI positions:
+
+**James Talarico (D-TX)** is the most AI-engaged candidate in the dataset by a wide
+margin, with 22 excerpts spanning nearly every AI topic. As a former teacher
+running for Senate, Talarico has authored legislation on deepfakes, AI in
+classrooms, algorithmic audits, and semiconductor export controls. His platform
+treats AI as a defining issue of the race. He frames it as requiring the same
+comprehensive attention as climate or healthcare — not a niche tech issue.
+
+**Charles Booker (D-KY)** has the most *radical* AI platform. He proposes creating
+a new federal agency (the "Human Labor Protection Bureau") to protect workers from
+AI displacement, banning AI-only hiring and firing decisions, taxing companies that
+automate away jobs, imposing a moratorium on data center construction, establishing
+public ownership stakes in AI development, and banning AI tools that generate
+non-consensual images. It's the most interventionist AI platform in any Senate race.
+
+**Ed Markey (D-MA)** brings legislative credentials — he's co-authored the AI Civil
+Rights Act and the ICE Away From Our Faces Act (banning facial recognition in
+immigration enforcement). His framing is explicitly pro-labor: *"The future of work
+should be written by organized labor — not billionaires and algorithms."*
+
+**Mark Warner (D-VA)** is notable as one of the few incumbents with a developed AI
+position, warning that *"Washington is largely unprepared for the coming AI jobs
+crisis"* and calling for AI companies to bear the costs of workforce disruption.
+
+**Kevin Hern (R-OK)** stands out as the most AI-engaged Republican, with 6 excerpts
+covering competitiveness, military applications, and government AI use.
+**Mike Rogers (R-MI)** is the only Republican with a multi-dimensional AI platform,
+supporting the White House AI framework while emphasizing child safety and
+competition with China.
+
+---
+
+### What's Missing
+
+Several gaps in the data are as revealing as what's present:
+
+**Most incumbents are silent.** Major figures like **John Cornyn (TX)**,
+**Lindsey Graham (SC)**, **Cory Booker (NJ)**, **John Hickenlooper (CO)**, and
+**Susan Collins (ME)** have little to no AI content on their campaign websites,
+despite having voted on AI-related legislation. Their Senate office sites (.gov)
+may address these issues, but their *campaign* messaging doesn't prioritize AI.
+
+**No leading Republican talks about AI and jobs.** The topic of *ai_jobs_workforce*
+— the single biggest AI theme in the dataset — is entirely absent from leading
+Republican campaign sites. This is a striking gap given that automation anxiety
+cuts across partisan lines in polling. Whether this reflects a strategic choice,
+an ideological blind spot, or simply a lag in campaign messaging is unclear, but it
+means the parties aren't even debating the same questions.
+
+**Deepfakes and misinformation are almost exclusively Democratic concerns.**
+Six leading Democrats mention deepfakes; only one Republican does. Given that
+AI-generated disinformation is a bipartisan problem (and AI-generated political
+ads are proliferating), the near-absence of Republican engagement is notable.
+
+**AI and healthcare, AI and agriculture** — topics with enormous practical
+implications — get almost no attention from either party. Only 2-3 excerpts
+total across all leading candidates.
+
+---
+
+### Eight Races to Watch
+
+In eight states, **candidates from both parties** have AI positions, creating the
+potential for genuine debate: **Alabama, Georgia, Illinois, Massachusetts, Maine,
+Michigan, New Hampshire, and Texas**. Michigan and Texas stand out as the races
+most likely to produce substantive AI policy exchanges, with multiple candidates
+on both sides engaging deeply.
+
+**Texas** is the most AI-engaged race overall (24 excerpts), driven by Talarico's
+comprehensive platform. **Michigan** (18 excerpts) features a genuine clash between
+Democrat Haley Stevens' CHIPS Act-focused approach and Republican Mike Rogers'
+AI framework emphasis.
+
+---
+
+### Methodology
+
+This analysis is based on automated scraping and AI-assisted analysis of campaign
+websites for 77 leading candidates in the 2026 U.S. Senate races (Class II seats).
+Content was scraped from official campaign websites in March 2026 and analyzed
+using Claude (Anthropic) to identify AI-relevant passages and classify them by
+topic, sentiment, and confidence. "Leading candidates" includes incumbents,
+primary frontrunners, and major declared challengers as identified via FEC filings
+and Ballotpedia.
+
+**Limitations:** This analysis captures only what candidates say on their campaign
+websites — not floor speeches, committee testimony, interviews, or social media.
+Some campaign sites are minimally developed or focus on fundraising rather than
+policy. Incumbents' official Senate websites (.gov) may contain policy positions
+not reflected in their campaign sites. AI-adjacent topics (automation, surveillance,
+semiconductors) are included when contextually related to artificial intelligence,
+which involves judgment calls in classification.
+
+---
+
+*Data and analysis available at this dashboard. Use the navigation to explore
+by party, topic, candidate, or state.*
+""")
 
 
 # ═══════════════════════════════════════════════════════════════════

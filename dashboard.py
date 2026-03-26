@@ -70,7 +70,7 @@ PAGES = [
 # ── Navigation helpers ────────────────────────────────────────────
 def navigate(page, **kwargs):
     """Set session state to navigate to a page with context."""
-    st.session_state["page_radio"] = page
+    st.session_state["_nav_target"] = page
     for k, v in kwargs.items():
         st.session_state[f"nav_{k}"] = v
 
@@ -113,6 +113,12 @@ def render_excerpts(df, show_candidate=True):
 st.sidebar.title("🏛️ 2026 Candidates on AI")
 st.sidebar.caption("How are Senate candidates talking about artificial intelligence?")
 st.sidebar.divider()
+
+# If a click-through navigation was triggered, apply it before rendering the radio
+if "_nav_target" in st.session_state:
+    _target = st.session_state.pop("_nav_target")
+    if _target in PAGES:
+        st.session_state["page_radio"] = _target
 
 page = st.sidebar.radio("", PAGES, key="page_radio")
 

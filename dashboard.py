@@ -26,6 +26,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+PLOTLY_CONFIG = {"displayModeBar": False}
+
+
 @st.cache_resource
 def get_conn():
     conn = sqlite3.connect(str(DB_PATH), check_same_thread=False)
@@ -175,7 +178,7 @@ if page == "📊 Overview":
                               margin=dict(l=0, r=20, t=10, b=20))
             fig.update_xaxes(title="Mentions across all candidates")
             fig.update_yaxes(title="")
-            event = st.plotly_chart(fig, use_container_width=True, on_select="rerun", key="overview_tags")
+            event = st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG, on_select="rerun", key="overview_tags")
             if event and event.selection and event.selection.points:
                 clicked_tag = event.selection.points[0]["customdata"][0]
                 navigate("🏷️ By Topic", tag=clicked_tag)
@@ -194,7 +197,7 @@ if page == "📊 Overview":
                          color="sentiment", color_discrete_map=SENTIMENT_COLORS, hole=0.45)
             fig.update_traces(textposition="outside", textinfo="label+percent")
             fig.update_layout(height=400, margin=dict(l=0, r=0, t=10, b=20), showlegend=False)
-            event = st.plotly_chart(fig, use_container_width=True, on_select="rerun", key="overview_sent")
+            event = st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG, on_select="rerun", key="overview_sent")
             if event and event.selection and event.selection.points:
                 clicked_sent = event.selection.points[0]["label"]
                 navigate("🔍 Search", sentiment=clicked_sent)
@@ -223,7 +226,7 @@ if page == "📊 Overview":
                               margin=dict(l=0, r=20, t=10, b=20), legend_title="Party")
             fig.update_xaxes(title="AI-related excerpts")
             fig.update_yaxes(title="")
-            event = st.plotly_chart(fig, use_container_width=True, on_select="rerun", key="overview_cands")
+            event = st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG, on_select="rerun", key="overview_cands")
             if event and event.selection and event.selection.points:
                 clicked_id = int(event.selection.points[0]["customdata"][0])
                 navigate("👤 By Candidate", candidate_id=clicked_id)
@@ -247,7 +250,7 @@ if page == "📊 Overview":
             fig.update_layout(height=450, margin=dict(l=0, r=0, t=10, b=0),
                               geo=dict(bgcolor="rgba(0,0,0,0)", lakecolor="rgba(0,0,0,0)"),
                               coloraxis_colorbar=dict(title="Excerpts"))
-            event = st.plotly_chart(fig, use_container_width=True, on_select="rerun", key="overview_map")
+            event = st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG, on_select="rerun", key="overview_map")
             if event and event.selection and event.selection.points:
                 clicked_state = event.selection.points[0].get("location") or event.selection.points[0].get("customdata", [None])[0]
                 if clicked_state:
@@ -287,7 +290,7 @@ elif page == "🏛️ By Party":
                      custom_data=["party", "sentiment"])
         fig.update_layout(height=350, xaxis_title="", yaxis_title="Number of excerpts",
                           margin=dict(l=0, r=20, t=10, b=20))
-        event = st.plotly_chart(fig, use_container_width=True, on_select="rerun", key="party_sent")
+        event = st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG, on_select="rerun", key="party_sent")
         if event and event.selection and event.selection.points:
             pt = event.selection.points[0]
             navigate("🔍 Search", party=pt["customdata"][0], sentiment=pt["customdata"][1])
@@ -327,7 +330,7 @@ elif page == "🏛️ By Party":
         fig = px.imshow(pivot, color_continuous_scale="RdBu", color_continuous_midpoint=0,
                         labels=dict(color="Valence"), aspect="auto")
         fig.update_layout(height=max(350, len(pivot) * 35), margin=dict(l=0, r=20, t=10, b=20))
-        event = st.plotly_chart(fig, use_container_width=True, on_select="rerun", key="party_heatmap")
+        event = st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG, on_select="rerun", key="party_heatmap")
         if event and event.selection and event.selection.points:
             pt = event.selection.points[0]
             clicked_label = pivot.index[pt["y"]] if isinstance(pt.get("y"), int) else pt.get("y")
@@ -362,7 +365,7 @@ elif page == "🏛️ By Party":
                           margin=dict(l=0, r=20, t=10, b=20), legend_title="Party")
         fig.update_xaxes(title="Mentions")
         fig.update_yaxes(title="")
-        event = st.plotly_chart(fig, use_container_width=True, on_select="rerun", key="party_topics")
+        event = st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG, on_select="rerun", key="party_topics")
         if event and event.selection and event.selection.points:
             pt = event.selection.points[0]
             navigate("🏷️ By Topic", tag=pt["customdata"][0])
@@ -422,7 +425,7 @@ elif page == "🏷️ By Topic":
                 fig = px.bar(sent_df, x="sentiment", y="count", color="sentiment",
                              color_discrete_map=SENTIMENT_COLORS)
                 fig.update_layout(showlegend=False, height=250, margin=dict(l=0, r=0, t=10, b=20))
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
             with col2:
                 party_df = excerpts.groupby(["party", "sentiment"]).size().reset_index(name="count")
                 party_df = party_df[party_df["party"].isin(["DEM", "REP"])]
@@ -431,7 +434,7 @@ elif page == "🏷️ By Topic":
                                  color_discrete_map=SENTIMENT_COLORS, barmode="stack")
                     fig.update_layout(height=250, margin=dict(l=0, r=0, t=10, b=20),
                                       xaxis_title="", showlegend=False)
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
 
             st.divider()
 
@@ -545,7 +548,7 @@ elif page == "👤 By Candidate":
                                  color="sentiment", color_discrete_map=SENTIMENT_COLORS, hole=0.45)
                     fig.update_traces(textposition="outside", textinfo="label+value")
                     fig.update_layout(height=280, margin=dict(l=0, r=0, t=10, b=0), showlegend=False)
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
 
                 with col2:
                     st.subheader("Topics")
@@ -563,7 +566,7 @@ elif page == "👤 By Candidate":
                                           coloraxis_showscale=False, height=280,
                                           margin=dict(l=0, r=20, t=10, b=0))
                         fig.update_yaxes(title="")
-                        event = st.plotly_chart(fig, use_container_width=True, on_select="rerun", key="cand_tags")
+                        event = st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG, on_select="rerun", key="cand_tags")
                         if event and event.selection and event.selection.points:
                             clicked_tag = event.selection.points[0]["customdata"][0]
                             navigate("🏷️ By Topic", tag=clicked_tag)

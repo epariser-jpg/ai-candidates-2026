@@ -369,31 +369,47 @@ it's that **they're having fundamentally different conversations**.
 
 **Democrats are far more likely to engage.** Among leading candidates, Democrats
 produced 103 AI-related excerpts across 24 candidates, compared to just 34
-excerpts from 14 Republicans. Democratic candidates like **James Talarico (TX)**,
-**Charles Booker (KY)**, **Ed Markey (MA)**, and **Haley Stevens (MI)** have built
-detailed, multi-issue AI platforms. Most leading Republican candidates simply
+excerpts from 14 Republicans. Most leading Republican candidates simply
 don't address AI on their campaign websites.
 
 **Democrats lead with jobs and worker protection.** The single biggest topic in the
 Democratic AI conversation is *ai_jobs_workforce* (33 mentions among leading
 candidates) — a topic that **no leading Republican candidate addresses**. Democrats
-frame AI through the lens of labor: Will automation displace workers? Should
-companies that replace workers with AI pay a tax? Do workers deserve a seat at the
-table when AI decisions are made? This framing connects AI to a long-standing
+frame AI through the lens of labor. Abdul El-Sayed (D-MI)
+[writes](https://abdulforsenate.com/priority/an-economy-for-working-people/):
+
+> *"World-changing technology — like AI — should be in the hands of the people
+> rather than unaccountable corporations. Rather than replace us, AI should be
+> a tool to enhance our lives."*
+
+James Talarico (D-TX) echoes this on his
+[labor platform](https://jamestalarico.com/issue/labor-business/):
+
+> *"Ensure AI works for working people: Protect workers from invasive AI
+> surveillance in the workplace; use AI to make jobs safer and less repetitive,
+> rather than to eliminate them."*
+
+This framing connects AI to a long-standing
 Democratic priority — worker and union power — and reflects real anxiety about
 automation's impact on middle-class jobs.
 
 **Republicans lead with competition and strength.** When Republicans do engage with
 AI, their top topic is *ai_competitiveness_china* (12 mentions) — framing AI as a
-national security and economic competition issue. **Mike Rogers (MI)** emphasizes
-U.S. global AI leadership and the White House AI framework. **Tom Cotton (AR)**
-and **Pete Ricketts (NE)** connect AI to military readiness. The Republican AI
-conversation is more about *winning the AI race* than *governing AI's consequences*.
+national security and economic competition issue. Mike Rogers (R-MI)
+[applauds](https://rogersforsenate.com/news/rogers-applauds-white-house-ai-framework-that-establishes-global-leadership-and-protects-kids-online)
+the White House AI framework, emphasizing that it *"establishes global leadership
+and protects kids online."* He also
+[highlights](https://rogersforsenate.com/news) AI's benefits in *"healthcare,
+manufacturing, and agriculture"* while stressing America's need to lead globally.
+The Republican AI conversation is more about *winning the AI race* than
+*governing AI's consequences*.
 
 **Surveillance is a rare point of agreement — from opposite directions.** Both
 parties express concern about AI-powered surveillance, but for different reasons.
-Democrats like **Jeff Merkley (OR)** want to ban facial recognition in immigration
-enforcement. Republicans' surveillance concerns tend to be rooted in libertarian
+Jeff Merkley (D-OR)
+[supports](https://www.jeffmerkley.com/2026/02/28/heres-what-i-did-month/)
+banning facial recognition and biometric surveillance in immigration enforcement.
+Republicans' surveillance concerns tend to be rooted in libertarian
 skepticism of government data collection. The policy prescriptions differ, but the
 underlying wariness of automated surveillance is bipartisan.
 
@@ -404,33 +420,52 @@ underlying wariness of automated surveillance is bipartisan.
 A handful of candidates have staked out unusually detailed or ambitious AI positions:
 
 **James Talarico (D-TX)** is the most AI-engaged candidate in the dataset by a wide
-margin, with 22 excerpts spanning nearly every AI topic. As a former teacher
-running for Senate, Talarico has authored legislation on deepfakes, AI in
-classrooms, algorithmic audits, and semiconductor export controls. His platform
-treats AI as a defining issue of the race. He frames it as requiring the same
-comprehensive attention as climate or healthcare — not a niche tech issue.
+margin, with 22 excerpts spanning nearly every AI topic. He has
+[authored legislation](https://jamestalarico.com/issue/social-media-artificial-intelligence-tech/)
+on deepfakes, AI-generated political ads, algorithmic audits, and semiconductor
+export controls. He argues that AI requires the same comprehensive regulatory
+attention as climate or healthcare, including mandating that
+[data centers bear the costs](https://jamestalarico.com/issue/energy-environment/)
+of their energy infrastructure rather than passing them to consumers.
 
-**Charles Booker (D-KY)** has the most *radical* AI platform. He proposes creating
-a new federal agency (the "Human Labor Protection Bureau") to protect workers from
-AI displacement, banning AI-only hiring and firing decisions, taxing companies that
-automate away jobs, imposing a moratorium on data center construction, establishing
-public ownership stakes in AI development, and banning AI tools that generate
-non-consensual images. It's the most interventionist AI platform in any Senate race.
+**Charles Booker (D-KY)** has the most *radical* AI platform. In his
+[Workers' Power and Bill of Rights](https://charlesbooker.org/wpbr/), he proposes:
 
-**Ed Markey (D-MA)** brings legislative credentials — he's co-authored the AI Civil
-Rights Act and the ICE Away From Our Faces Act (banning facial recognition in
-immigration enforcement). His framing is explicitly pro-labor: *"The future of work
-should be written by organized labor — not billionaires and algorithms."*
+> *"The centerpiece of my plan is to call for a new federal enforcement agency:
+> The Human Labor Protection Bureau... tasked with affirmatively protecting
+> workers from harmful displacement and disruption caused by artificial
+> intelligence."*
+
+He also calls for banning AI-only hiring/firing decisions, taxing companies that
+automate away jobs, a moratorium on data center construction, and establishing
+[public ownership stakes](https://charlesbooker.org/wpbr/) in AI development so
+*"profits generated from human labor, creativity, and public investment are shared
+broadly through a dividend for working people."* He separately proposes
+[banning AI tools like GROK](https://charlesbooker.org/stop-the-musk-plan/) that
+generate non-consensual images.
+
+**Ed Markey (D-MA)** brings legislative credentials — he's
+[co-authored the AI Civil Rights Act](https://www.edmarkey.com/boston-globe-ayanna-pressley-endorses-ed-markey-for-reelection/)
+with Pressley. His framing is explicitly
+[pro-labor](https://www.edmarkey.com/markey-has-our-back-statewide-machinists-union-endorse-senator-ed-markey-for-re-election/):
+
+> *"At a moment when Big Tech barons are chasing automation without accountability
+> and see AI as a way to cut labor costs and crush collective bargaining, I see a
+> different future where technology works for workers — not against them."*
 
 **Mark Warner (D-VA)** is notable as one of the few incumbents with a developed AI
-position, warning that *"Washington is largely unprepared for the coming AI jobs
-crisis"* and calling for AI companies to bear the costs of workforce disruption.
+position,
+[warning](https://www.markwarnerva.com/plan/):
 
-**Kevin Hern (R-OK)** stands out as the most AI-engaged Republican, with 6 excerpts
-covering competitiveness, military applications, and government AI use.
-**Mike Rogers (R-MI)** is the only Republican with a multi-dimensional AI platform,
-supporting the White House AI framework while emphasizing child safety and
-competition with China.
+> *"Washington is largely unprepared for the coming AI jobs crisis and we
+> urgently need forward-looking policies to prepare our economy for this new era.
+> Mark believes the AI companies and big corporations that stand to massively profit
+> from this disruption must do their part."*
+
+**Mike Rogers (R-MI)** is the Republican with the most multi-dimensional AI platform,
+[supporting](https://rogersforsenate.com/news/rogers-applauds-white-house-ai-framework-that-establishes-global-leadership-and-protects-kids-online)
+the White House AI framework while emphasizing child safety and competition with
+China. He's a rare Republican who frames AI positively across multiple sectors.
 
 ---
 
@@ -452,13 +487,22 @@ an ideological blind spot, or simply a lag in campaign messaging is unclear, but
 means the parties aren't even debating the same questions.
 
 **Deepfakes and misinformation are almost exclusively Democratic concerns.**
-Six leading Democrats mention deepfakes; only one Republican does. Given that
-AI-generated disinformation is a bipartisan problem (and AI-generated political
-ads are proliferating), the near-absence of Republican engagement is notable.
+Talarico has
+[authored legislation](https://jamestalarico.com/issue/social-media-artificial-intelligence-tech/)
+to combat deepfakes and regulate AI-generated political ads. But among leading
+Republicans, the topic is virtually absent. Given that AI-generated
+disinformation is a bipartisan problem, this silence is notable.
+
+**Consumer protection is emerging but niche.** Chris Pappas (D-NH)
+[supports legislation](https://chrispappas.org/2026/03/chris-pappas-for-senate-highlights-actions-to-lower-grocery-costs-for-granite-state-families/)
+to ban AI-powered personalized price gouging. Roy Cooper (D-NC) wants to
+[prohibit](https://roycooper.com/make-stuff-cost-less) algorithmic price
+coordination in grocery stores. Booker wants to ban AI-powered price manipulation
+in housing and groceries. These are early signals of a potential consumer-facing
+AI issue — but so far, only Democrats are raising it.
 
 **AI and healthcare, AI and agriculture** — topics with enormous practical
-implications — get almost no attention from either party. Only 2-3 excerpts
-total across all leading candidates.
+implications — get almost no attention from either party.
 
 ---
 
@@ -466,14 +510,21 @@ total across all leading candidates.
 
 In eight states, **candidates from both parties** have AI positions, creating the
 potential for genuine debate: **Alabama, Georgia, Illinois, Massachusetts, Maine,
-Michigan, New Hampshire, and Texas**. Michigan and Texas stand out as the races
-most likely to produce substantive AI policy exchanges, with multiple candidates
-on both sides engaging deeply.
+Michigan, New Hampshire, and Texas**.
 
 **Texas** is the most AI-engaged race overall (24 excerpts), driven by Talarico's
-comprehensive platform. **Michigan** (18 excerpts) features a genuine clash between
-Democrat Haley Stevens' CHIPS Act-focused approach and Republican Mike Rogers'
-AI framework emphasis.
+comprehensive platform. **Michigan** (18 excerpts) features a genuine clash:
+Haley Stevens (D)
+[helped write the CHIPS Act](https://haleyformi.com/about/) to bring chip
+production to Michigan, while Mike Rogers (R)
+[supports](https://rogersforsenate.com/news/rogers-applauds-white-house-ai-framework-that-establishes-global-leadership-and-protects-kids-online)
+the White House AI framework — a rare race where both sides engage substantively
+on AI, albeit from very different angles.
+
+David Costello (D-ME) stands alone in framing AI as an
+[existential risk](https://www.costelloforsenate.com/press-releases), listing
+unconstrained AI alongside climate change and nuclear weapons as threats requiring
+global mitigation — a frame no other leading candidate adopts.
 
 ---
 

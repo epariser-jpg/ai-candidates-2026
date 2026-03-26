@@ -93,7 +93,8 @@ def render_excerpts(df, show_candidate=True):
         icon = SENTIMENT_ICONS.get(row.get("sentiment", ""), "⚪")
         star = "⭐ " if row.get("candidate_tier") == "leading" else ""
         if show_candidate:
-            label = f"{icon} {star}{row['name']} ({row['party']}, {row['state']}) — {row['sentiment']} ({row.get('confidence', 0):.0%})"
+            state_str = f", {row['state']}" if "state" in row.index else ""
+            label = f"{icon} {star}{row['name']} ({row['party']}{state_str}) — {row['sentiment']} ({row.get('confidence', 0):.0%})"
         else:
             label = f"{icon} {(row.get('position_summary') or 'No summary')[:100]}"
 
@@ -631,7 +632,7 @@ elif page == "🗺️ By State":
             st.divider()
 
             state_excerpts = query_df("""
-                SELECT ca.name, ca.party, ca.candidate_tier,
+                SELECT ca.name, ca.party, ca.state, ca.candidate_tier,
                        e.excerpt_text, e.position_summary, e.sentiment, e.confidence,
                        c.source_url, GROUP_CONCAT(t.name, ', ') as tags
                 FROM excerpts e

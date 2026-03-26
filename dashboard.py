@@ -70,7 +70,7 @@ PAGES = [
 # ── Navigation helpers ────────────────────────────────────────────
 def navigate(page, **kwargs):
     """Set session state to navigate to a page with context."""
-    st.session_state["nav_page"] = page
+    st.session_state["page_radio"] = page
     for k, v in kwargs.items():
         st.session_state[f"nav_{k}"] = v
 
@@ -114,17 +114,7 @@ st.sidebar.title("🏛️ 2026 Candidates on AI")
 st.sidebar.caption("How are Senate candidates talking about artificial intelligence?")
 st.sidebar.divider()
 
-# Use nav_page from session state if set (from a click-through), otherwise use radio
-default_idx = 0
-if "nav_page" in st.session_state:
-    target = st.session_state["nav_page"]
-    if target in PAGES:
-        default_idx = PAGES.index(target)
-
-page = st.sidebar.radio("", PAGES, index=default_idx, key="page_radio")
-
-# Clear nav_page after radio picks it up
-st.session_state.pop("nav_page", None)
+page = st.sidebar.radio("", PAGES, key="page_radio")
 
 st.sidebar.divider()
 st.sidebar.caption("Data: Campaign websites scraped Mar 2026.\nAI positions extracted via Claude Sonnet.")

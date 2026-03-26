@@ -193,6 +193,7 @@ if "_nav_target" in st.session_state:
 page = st.sidebar.radio("", PAGES, key="page_radio")
 
 st.sidebar.divider()
+st.sidebar.markdown("💡 **[Share your ideas →](#)** to help improve this dashboard!", unsafe_allow_html=False)
 st.sidebar.caption("Data: Campaign websites scraped Mar 2026.\nAI positions extracted via Claude Sonnet.")
 
 
@@ -871,15 +872,33 @@ elif page == "🔍 Search":
 # FEEDBACK
 # ═══════════════════════════════════════════════════════════════════
 elif page == "💡 Feedback":
-    st.title("Feature Requests & Feedback")
-    st.markdown("Have an idea for improving this dashboard, or notice something wrong? Submit it below.")
+    st.title("Help Us Improve This Dashboard")
+
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 30px; border-radius: 12px; color: white; margin-bottom: 24px;">
+        <h2 style="color: white; margin-top: 0;">We want your ideas!</h2>
+        <p style="font-size: 1.1em; margin-bottom: 0;">
+            This is a living project tracking how 2026 Senate candidates talk about AI.
+            What would make it more useful to you? New features, better visualizations,
+            missing candidates, data corrections — we want to hear it all.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col1, col2, col3 = st.columns(3)
+    col1.markdown("**🔧 Feature Ideas**\n\nNew views, filters, comparisons, exports — what would help you explore the data?")
+    col2.markdown("**📊 Data Gaps**\n\nKnow a candidate's AI position we're missing? A page we didn't scrape? Let us know.")
+    col3.markdown("**🐛 Bug Reports**\n\nSomething broken or displaying incorrectly? Help us fix it.")
+
+    st.divider()
 
     with st.form("feedback_form", clear_on_submit=True):
-        req_type = st.selectbox("Type", ["Feature request", "Bug report", "Data correction", "Other"])
-        title = st.text_input("Title", placeholder="e.g. Add comparison view for two candidates")
-        description = st.text_area("Description", placeholder="Describe what you'd like to see or what's wrong...", height=150)
-        email = st.text_input("Your email (optional)", placeholder="In case we need to follow up")
-        submitted = st.form_submit_button("Submit")
+        req_type = st.selectbox("What kind of feedback?", ["Feature request", "Data correction", "Bug report", "Other"])
+        title = st.text_input("Summary", placeholder="e.g. Add side-by-side comparison for two candidates")
+        description = st.text_area("Tell us more", placeholder="What would you like to see? What's missing or broken? The more detail, the better.", height=150)
+        email = st.text_input("Your email (optional)", placeholder="In case we want to follow up")
+        submitted = st.form_submit_button("Submit Feedback", type="primary")
 
     if submitted:
         if not title or not description:

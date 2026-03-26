@@ -64,7 +64,10 @@ PAGES = [
     "👤 By Candidate",
     "🗺️ By State",
     "🔍 Search",
+    "💡 Feedback",
 ]
+
+GITHUB_REPO = "epariser-jpg/ai-candidates-2026"
 
 
 # ── Navigation helpers ────────────────────────────────────────────
@@ -862,3 +865,72 @@ elif page == "🔍 Search":
                 results = query_df(sql, params)
                 st.subheader(f"{len(results)} results")
                 render_excerpts(results, show_candidate=True)
+
+
+# ═══════════════════════════════════════════════════════════════════
+# FEEDBACK
+# ═══════════════════════════════════════════════════════════════════
+elif page == "💡 Feedback":
+    st.title("Feature Requests & Feedback")
+    st.markdown("Have an idea for improving this dashboard, or notice something wrong? Submit it below.")
+
+    with st.form("feedback_form", clear_on_submit=True):
+        req_type = st.selectbox("Type", ["Feature request", "Bug report", "Data correction", "Other"])
+        title = st.text_input("Title", placeholder="e.g. Add comparison view for two candidates")
+        description = st.text_area("Description", placeholder="Describe what you'd like to see or what's wrong...", height=150)
+        email = st.text_input("Your email (optional)", placeholder="In case we need to follow up")
+        submitted = st.form_submit_button("Submit")
+
+    if submitted:
+        if not title or not description:
+            st.error("Please fill in both a title and description.")
+        else:
+            import urllib.parse
+            # Build a GitHub issue URL with pre-filled content
+            label_map = {
+                "Feature request": "enhancement",
+                "Bug report": "bug",
+                "Data correction": "data",
+                "Other": "question",
+            }
+            body = f"**Type:** {req_type}\n\n{description}"
+            if email:
+                body += f"\n\n**Contact:** {email}"
+            body += "\n\n---\n*Submitted via the dashboard feedback form.*"
+
+            # Try GitHub API if token is available (creates issue directly)
+            gh_token = None
+            try:
+                gh_token = st.secrets.get("GITHUB_TOKEN")
+            except Exception:
+                pass
+
+            if gh_token:
+                import requests
+                resp = requests.post(
+                    f"https://api.github.com/repos/{GITHUB_REPO}/issues",
+                    headers={"Authorization": f"token {gh_token}", "Accept": "application/vnd.github.v3+json"},
+                    json={
+                        "title": f"[{req_type}] {title}",
+                        "body": body,
+                        "labels": [label_map.get(req_type, "question")],
+                    },
+                )
+                if resp.status_code == 201:
+                    issue_url = resp.json().get("html_url", "")
+                    st.success(f"Thanks! Your feedback has been submitted. [View it on GitHub]({issue_url})")
+                else:
+                    st.error("Something went wrong submitting your feedback. Please try the link below instead.")
+                    params = urllib.parse.urlencode({"title": f"[{req_type}] {title}", "body": body})
+                    st.markdown(f"[Submit on GitHub →](https://github.com/{GITHUB_REPO}/issues/new?{params})")
+            else:
+                # Fallback: open a pre-filled GitHub issue URL
+                params = urllib.parse.urlencode({
+                    "title": f"[{req_type}] {title}",
+                    "body": body,
+                    "labels": label_map.get(req_type, "question"),
+                })
+                issue_url = f"https://github.com/{GITHUB_REPO}/issues/new?{params}"
+                st.success("Thanks! Click the link below to submit your feedback on GitHub:")
+                st.markdown(f"### [Submit on GitHub →]({issue_url})")
+                st.caption("You'll need a GitHub account. Your title and description will be pre-filled.")

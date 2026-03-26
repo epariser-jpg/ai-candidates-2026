@@ -416,27 +416,43 @@ elif page == "🏷️ By Topic":
 
             col1, col2 = st.columns(2)
             with col1:
+                st.caption("Click a bar to filter by sentiment")
                 sent_df = excerpts["sentiment"].value_counts().reset_index()
                 sent_df.columns = ["sentiment", "count"]
                 fig = px.bar(sent_df, x="sentiment", y="count", color="sentiment",
-                             color_discrete_map=SENTIMENT_COLORS)
+                             color_discrete_map=SENTIMENT_COLORS, custom_data=["sentiment"])
                 fig.update_layout(showlegend=False, height=250, margin=dict(l=0, r=0, t=10, b=20))
-                st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
+                event = st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG, on_select="rerun", key="topic_sent_chart")
+                clicked_sentiment = None
+                if event and event.selection and event.selection.points:
+                    clicked_sentiment = event.selection.points[0]["customdata"][0]
             with col2:
                 party_df = excerpts.groupby(["party", "sentiment"]).size().reset_index(name="count")
                 party_df = party_df[party_df["party"].isin(["DEM", "REP"])]
                 if not party_df.empty:
+                    st.caption("Click a segment to filter by party + sentiment")
                     fig = px.bar(party_df, x="party", y="count", color="sentiment",
-                                 color_discrete_map=SENTIMENT_COLORS, barmode="stack")
+                                 color_discrete_map=SENTIMENT_COLORS, barmode="stack",
+                                 custom_data=["party", "sentiment"])
                     fig.update_layout(height=250, margin=dict(l=0, r=0, t=10, b=20),
                                       xaxis_title="", showlegend=False)
-                    st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
+                    event2 = st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG, on_select="rerun", key="topic_party_chart")
+                    clicked_party_sent = None
+                    if event2 and event2.selection and event2.selection.points:
+                        pt = event2.selection.points[0]
+                        clicked_party_sent = (pt["customdata"][0], pt["customdata"][1])
 
             st.divider()
 
+            # Pre-populate filters from chart clicks
+            default_sent = [clicked_sentiment] if clicked_sentiment else []
+            default_party = [clicked_party_sent[0]] if locals().get("clicked_party_sent") else []
+            if locals().get("clicked_party_sent") and not clicked_sentiment:
+                default_sent = [clicked_party_sent[1]]
+
             col1, col2, col3 = st.columns(3)
-            party_filter = col1.multiselect("Party", sorted(excerpts["party"].unique().tolist()))
-            sent_filter = col2.multiselect("Sentiment", sorted(excerpts["sentiment"].unique().tolist()))
+            party_filter = col1.multiselect("Party", sorted(excerpts["party"].unique().tolist()), default=default_party)
+            sent_filter = col2.multiselect("Sentiment", sorted(excerpts["sentiment"].unique().tolist()), default=default_sent)
             leading_only = col3.toggle("Leading candidates only", value=False, key="topic_leading")
 
             filtered = excerpts

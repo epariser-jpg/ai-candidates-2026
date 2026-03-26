@@ -193,7 +193,9 @@ if "_nav_target" in st.session_state:
 page = st.sidebar.radio("", PAGES, key="page_radio")
 
 st.sidebar.divider()
-st.sidebar.markdown("💡 **[Share your ideas →](#)** to help improve this dashboard!", unsafe_allow_html=False)
+if st.sidebar.button("💡 Share your ideas to improve this site", use_container_width=True):
+    navigate("💡 Feedback")
+    st.rerun()
 st.sidebar.caption("Data: Campaign websites scraped Mar 2026.\nAI positions extracted via Claude Sonnet.")
 
 

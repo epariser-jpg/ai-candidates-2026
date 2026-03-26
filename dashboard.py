@@ -81,6 +81,73 @@ def get_nav(key, default=None):
     return val
 
 
+# ── Candidate summary builder ────────────────────────────────────
+def build_candidate_summary(candidate, excerpts_df):
+    """Build a narrative summary paragraph from a candidate's excerpts."""
+    name = candidate["name"]
+    party_label = {"DEM": "Democratic", "REP": "Republican", "IND": "Independent",
+                   "LIB": "Libertarian", "GRE": "Green"}.get(candidate["party"], candidate["party"])
+
+    # Gather key data
+    sentiments = excerpts_df["sentiment"].value_counts()
+    total = len(excerpts_df)
+
+    # Collect unique tags
+    all_tags = []
+    for tags_str in excerpts_df["tags"].dropna():
+        all_tags.extend([t.strip() for t in tags_str.split(",")])
+    top_tags = [fmt_tag(t) for t, _ in pd.Series(all_tags).value_counts().head(4).items()]
+
+    # Get high-confidence position summaries (deduplicated)
+    high_conf = excerpts_df[excerpts_df["confidence"] >= 0.75].sort_values("confidence", ascending=False)
+    positions = []
+    seen = set()
+    for _, row in high_conf.iterrows():
+        summary = row.get("position_summary", "")
+        if summary and summary not in seen:
+            seen.add(summary)
+            positions.append(summary)
+        if len(positions) >= 4:
+            break
+
+    # Build the paragraph
+    # Opening: overall stance
+    dominant = sentiments.index[0] if len(sentiments) > 0 else "neutral"
+    stance_map = {
+        "supportive": "generally embraces AI and technology",
+        "cautious": "takes a cautious approach to AI, emphasizing the need for guardrails",
+        "opposed": "takes a critical stance toward AI and automated systems",
+        "neutral": "addresses AI-related topics",
+        "mixed": "has a mixed position on AI, supporting some applications while opposing others",
+    }
+    stance = stance_map.get(dominant, "addresses AI-related topics")
+
+    # Topics
+    if top_tags:
+        topics_str = ", ".join(top_tags[:-1]) + f", and {top_tags[-1]}" if len(top_tags) > 1 else top_tags[0]
+    else:
+        topics_str = "AI-related issues"
+
+    parts = [f"**{name}** ({party_label}) {stance}, with **{total} AI-related positions** "
+             f"on their campaign website touching on {topics_str}."]
+
+    # Key positions
+    if positions:
+        parts.append(" ".join(positions[:3]))
+
+    # Sentiment mix if not one-sided
+    if len(sentiments) > 1:
+        sent_parts = []
+        for s, count in sentiments.items():
+            pct = count * 100 // total
+            if pct >= 15:
+                sent_parts.append(f"{s} ({pct}%)")
+        if sent_parts:
+            parts.append(f"Overall tone: {', '.join(sent_parts)}.")
+
+    return " ".join(parts)
+
+
 # ── Reusable excerpt renderer ────────────────────────────────────
 def render_excerpts(df, show_candidate=True):
     """Render a list of excerpts as expanders."""
@@ -551,6 +618,11 @@ elif page == "👤 By Candidate":
             if excerpts.empty:
                 st.info("No AI-related content found on this candidate's website.")
             else:
+                # Generate overview summary from excerpts
+                summary = build_candidate_summary(selected, excerpts)
+                st.markdown(summary)
+
+                st.divider()
                 col1, col2 = st.columns(2)
                 with col1:
                     st.subheader("Sentiment")
